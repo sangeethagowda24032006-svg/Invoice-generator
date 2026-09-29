@@ -17,91 +17,46 @@
             <form id="invoiceForm">
                 <div>
                     <label for="customerName">Customer Name</label>
-                    <input
-                        type="text"
-                        id="customerName"
-                        name="customerName"
-                        placeholder="Enter customer name"
-                    >
+                    <input type="text" id="customerName" name="customerName"  placeholder="Enter customer name">
                 </div>
                 <div>
                     <label for="customerEmail">Email</label>
-                    <input
-                        type="email"
-                        id="customerEmail"
-                        name="customerEmail"
-                        placeholder="Enter customer email"
-                    >
+                    <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter customer email">
                 </div>
                 <div>
                     <label for="customerPhone">Phone Number</label>
-                    <input
-                        type="tel"
-                        id="customerPhone"
-                        name="customerPhone"
-                        placeholder="Enter phone number"
-                    >
+                    <input type="tel" id="customerPhone" name="customerPhone" placeholder="Enter phone number">
                 </div>
                 <div>
                     <label for="invoiceDate">Invoice Date</label>
-                    <input
-                        type="date"
-                        id="invoiceDate"
-                        name="invoiceDate"
-                    >
+                    <input type="date" id="invoiceDate" name="invoiceDate">
                 </div>
             </form>
         </section>
         <section>
             <h2>Invoice Items</h2>
-            <button type="button" id="addItemBtn">
-                + Add Item
-            </button>
+            <button type="button" id="addItemBtn">+ Add Item</button>
             <div id="itemsContainer">
                 <article class="invoice-item">
                     <div>
-                        <label for="itemName">Item Name</label>
-                        <input
-                            type="text"
-                            id="itemName"
-                            placeholder="Enter item name"
-                        >
+                        <label>Item Name</label>
+                        <input type="text" class="itemName" placeholder="Enter item name">
                     </div>
                     <div>
-                        <label for="quantity">Quantity</label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            min="1"
-                            placeholder="0"
-                        >
+                        <label>Quantity</label>
+                        <input type="number" class="quantity" min="1" placeholder="0">
                     </div>
                     <div>
-                        <label for="unitPrice">Unit Price</label>
-                        <input
-                            type="number"
-                            id="unitPrice"
-                            min="0"
-                            step="0.01"
-                            placeholder="0.00"
-                        >
+                        <label>Unit Price</label>
+                        <input type="number" class="unitPrice" min="0" step="0.01" placeholder="0.00">
                     </div>
                     <div>
-                        <label for="lineTotal">Line Total</label>
-                        <input
-                            type="text"
-                            id="lineTotal"
-                            value="₹0.00"
-                            readonly
-                        >
+                        <label>Line Total</label>
+                        <input type="text" class="lineTotal" value="₹0.00" readonly>
                     </div>
                     <div>
-                        <button type="button" class="editBtn">
-                            Edit
-                        </button>
-                        <button type="button" class="deleteBtn">
-                            Delete
-                        </button>
+                        <button type="button" class="editBtn">Edit</button>
+                        <button type="button" class="deleteBtn">Delete</button>
                     </div>
                 </article>
             </div>
@@ -110,29 +65,21 @@
             <h2>Tax</h2>
             <div>
                 <label for="taxRate">Tax Rate (%)</label>
-                <input
-                    type="number"
-                    id="taxRate"
-                    min="0"
-                    max="100"
-                    step="0.01"
-                    value="0"
-                    placeholder="Enter tax percentage"
-                >
+                <input type="number" id="taxRate" min="0" max="100" step="0.01" value="0" placeholder="Enter tax percentage">
             </div>
         </section>
         <section>
             <h2>Invoice Summary</h2>
             <div>
-                <p>Subtotal:<span id="subtotal">₹0.00</span></p>
-                <p>Tax:<span id="taxAmount">₹0.00</span></p>
-                <p><strong>Grand Total:<span id="grandTotal">₹0.00</span></strong></p>
+                <p> Subtotal: <span id="subtotal">₹0.00</span></p> 
+                <p> Tax:<span id="taxAmount">₹0.00</span></p>
+                <p> <strong>Grand Total: <span id="grandTotal">₹0.00</span></strong></p>
             </div>
         </section>
         <section>
             <h2>Actions</h2>
             <button type="button" id="previewBtn">Preview Invoice</button>
-            <button type="button" id="resetBtn">Reset</button>
+            <button type="button" id="resetBtn"> Reset</button>
         </section>
     </main>
     <script src="script.js"></script>

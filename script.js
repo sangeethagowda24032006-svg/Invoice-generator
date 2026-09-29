@@ -1,16 +1,36 @@
 const addItemBtn = document.getElementById("addItemBtn");
 const itemsContainer = document.getElementById("itemsContainer");
+const taxRate = document.getElementById("taxRate");
 
-function calculateLineTotal(item) {
-    const quantity = Number(item.querySelector(".quantity").value) || 0;
-    const unitPrice = Number(item.querySelector(".unitPrice").value) || 0;
-    const total = quantity * unitPrice;
+function calculateTotal() {
+    let subtotal = 0;
 
-    item.querySelector(".lineTotal").value = `₹${total.toFixed(2)}`;
+    document.querySelectorAll(".invoice-item").forEach(item => {
+        let quantity = Number(item.querySelector(".quantity").value) || 0;
+        let price = Number(item.querySelector(".unitPrice").value) || 0;
+
+        let total = quantity * price;
+
+        item.querySelector(".lineTotal").value = "₹" + total.toFixed(2);
+
+        subtotal = subtotal + total;
+    });
+
+    let tax = subtotal * (Number(taxRate.value) || 0) / 100;
+    let grandTotal = subtotal + tax;
+
+    document.getElementById("subtotal").textContent =
+        "₹" + subtotal.toFixed(2);
+
+    document.getElementById("taxAmount").textContent =
+        "₹" + tax.toFixed(2);
+
+    document.getElementById("grandTotal").textContent =
+        "₹" + grandTotal.toFixed(2);
 }
 
-function addItem() {
-    const item = document.createElement("article");
+addItemBtn.addEventListener("click", function() {
+    let item = document.createElement("article");
 
     item.className = "invoice-item";
 
@@ -36,26 +56,56 @@ function addItem() {
         </div>
 
         <div>
+            <button type="button" class="editBtn">Edit</button>
             <button type="button" class="deleteBtn">Delete</button>
         </div>
     `;
 
     itemsContainer.appendChild(item);
+});
 
-    const quantity = item.querySelector(".quantity");
-    const unitPrice = item.querySelector(".unitPrice");
+itemsContainer.addEventListener("input", function() {
+    calculateTotal();
+});
 
-    quantity.addEventListener("input", () => {
-        calculateLineTotal(item);
-    });
+itemsContainer.addEventListener("click", function(event) {
 
-    unitPrice.addEventListener("input", () => {
-        calculateLineTotal(item);
-    });
+    if (event.target.classList.contains("deleteBtn")) {
+        event.target.closest(".invoice-item").remove();
+        calculateTotal();
+    }
 
-    item.querySelector(".deleteBtn").addEventListener("click", () => {
-        item.remove();
-    });
-}
+    if (event.target.classList.contains("editBtn")) {
+        let item = event.target.closest(".invoice-item");
+        let inputs = item.querySelectorAll("input");
 
-addItemBtn.addEventListener("click", addItem);
+        inputs[0].removeAttribute("readonly");
+        inputs[1].removeAttribute("readonly");
+        inputs[2].removeAttribute("readonly");
+
+        inputs[0].focus();
+    }
+});
+
+taxRate.addEventListener("input", function() {
+    calculateTotal();
+});
+
+document.getElementById("resetBtn").addEventListener("click", function() {
+    location.reload();
+});
+
+document.getElementById("previewBtn").addEventListener("click", function() {
+    alert(
+        "Customer: " +
+        document.getElementById("customerName").value +
+        "\n\nSubtotal: " +
+        document.getElementById("subtotal").textContent +
+        "\nTax: " +
+        document.getElementById("taxAmount").textContent +
+        "\nGrand Total: " +
+        document.getElementById("grandTotal").textContent
+    );
+});
+
+calculateTotal();
